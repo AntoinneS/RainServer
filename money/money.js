@@ -134,7 +134,7 @@ var Moneystuff = {
      money.importtkts(uid)	
 	 }
     },
-	started: false,
+	started: money.settings.isOn,
 	//item functions .3.
 	shop: require('./shop.js').shop,
 	settings: require('./settings.js'),
