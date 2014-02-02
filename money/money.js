@@ -137,6 +137,7 @@ var Moneystuff = {
 	started: false,
 	//item functions .3.
 	shop: require('./shop.js').shop,
+	settings: require('./settings.js'),
 	checkItem: function(target){
 	if(money.shop[target] !== undefined) return true
 	else return false;
