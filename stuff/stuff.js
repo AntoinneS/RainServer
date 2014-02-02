@@ -6,18 +6,6 @@ splint: function(target) {
 		for (var i = 0; i < cmdArr.length; i++) cmdArr[i] = cmdArr[i].trim();
 		return cmdArr;
 		},
-reload: function(){
-CommandParser.uncacheTree('./stuff/stuff.js');
-stuff = require('./stuff/stuff.js').stuff();
-CommandParser.uncacheTree('./stuff/spam.js');
-spam = require('./stuff/spam.js').spam();
-CommandParser.uncacheTree('./money/money.js');
-money = require('./money/money.js').money();
-CommandParser.uncacheTree('./hangman.js');
-global.hangman = require('./hangman.js').hangman();
-CommandParser.uncacheTree('./trivia.js');
-global.trivia = require('./trivia.js').trivia();
-},
 SystemOperators: ['bandi','ifaze']
 }
 Users.User.prototype.hasSysopAccess = function() {
