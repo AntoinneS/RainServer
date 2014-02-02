@@ -19,17 +19,21 @@ jokes: {
 10: 'Yo\' mama so ugly that not even goldfish crackers smile back',
 11: 'How does a blonde kill a fish? She drowns it.',
 12: 'How do you amuse a blonde for hours? Write \'Please turn over\' on both sides of a piece of paper',
-13: 'Girl: Why are you so ugly? Boy: I'm you from the future.',
+13: 'Girl: Why are you so ugly? Boy: I\'m you from the future.',
 14: '-Someone says something about you or boring -You, Say it to my butt because its the only thing that gives a crap.',
 15: 'Me: *randomly walks up to Chinese person*. "Chow tang wong.". Chinese person: *nods, points to the bathroom*.',
 16: 'Random Kid,"Haha you failed!" You, "So did your dads condom."',
 17: 'Why did the redneck cross the road? He wanted to sleep in the ditch on the other side. ',
 18: 'Why did the blind blonde cross the road? She was following her seeing-eye chicken.',
 19: 'Why was there so much confusion with the Secret Service after George W. Bush took over the White House? Because President Bill Clinton\'s code name was also "Mr. Bush."',
-20: 'Most wives whose husbands fool around have to worry about their husbands getting AIDS from sex.
-Hillary just has to worry about her husband getting sex from aides.'
+20: 'Most wives whose husbands fool around have to worry about their husbands getting AIDS from sex.Hillary just has to worry about her husband getting sex from aides.'
 },
 getRandjoke: function(){
-//to work on later
-}
+return bot.jokes[Math.floor[Math.random()*20]];
+},
+say: function(name,message){
+  return room.add('|c| ' + name + '|' + message);
+},
+parser: require('./botparser.js')
+cmds: {}
 }
