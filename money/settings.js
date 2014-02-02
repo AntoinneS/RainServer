@@ -1,7 +1,7 @@
 //Money settings
 
 exports.moneyOps = ['bandi','ifaze'];
-
+exports.isOn = false;
 exports.casino = {
 on: false,
 auth: ['critch55'],
