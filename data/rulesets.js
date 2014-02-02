@@ -437,31 +437,31 @@ exports.BattleFormats = {
 			}
 		}
 	},
-	sametypeclause: {
+	samecolorclause: {
 		effectType: 'Rule',
 		onStart: function() {
-			this.add('rule', 'Same Type Clause: Pokemon in a team must share a type');
+			this.add('rule', 'Color Type Clause: Pokemon in a team must share a color');
 		},
 		validateTeam: function(team, format) {
-			var typeTable = {};
+			var colorTable = {};
 			for (var i=0; i<team.length; i++) {
-				var template = this.getTemplate(team[i].species);
-				if (!template.types) continue;
+				var template = this.getTemplate(team[i]);
+				if (!template.color) continue;
 
 				// first type
-				var type = template.types[0];
-				typeTable[type] = (typeTable[type]||0) + 1;
+				var color = template.color[0];
+				typeTable[color] = (typeTable[color]||0) + 1;
 
 				// second type
-				type = template.types[1];
-				if (type) typeTable[type] = (typeTable[type]||0) + 1;
+				color = template.colors[1];
+				if (color) typeTable[color] = (typeTable[color]||0) + 1;
 			}
 			for (var type in typeTable) {
-				if (typeTable[type] >= team.length) {
+				if (colorTable[type] >= team.length) {
 					return;
 				}
 			}
-			return ["Your team must share a type."];
+			return ["Your team must share a color."];
 		}
 	}
 };
