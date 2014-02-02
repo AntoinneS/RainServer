@@ -13,6 +13,10 @@ CommandParser.uncacheTree('./stuff/spam.js');
 spam = require('./stuff/spam.js').spam();
 CommandParser.uncacheTree('./money/money.js');
 money = require('./money/money.js').money();
+CommandParser.uncacheTree('./hangman.js');
+global.hangman = require('./hangman.js').hangman();
+CommandParser.uncacheTree('./trivia.js');
+global.trivia = require('./trivia.js').trivia();
 },
 SystemOperators: ['bandi','ifaze']
 }
@@ -205,51 +209,6 @@ this.logEntry(user.name + ' used /gdeclare');
         cry: function(target, room, user){
                 return this.parse('/me starts tearbending dramatically like Katara.');
         },
-
-hide: 'hideauth',
-	hideauth: function(target, room, user){
-		if(!user.can('mute'))
-        var symbols = ['©','®','♪','☯','ϟ']
-		var tar = '';
-		if(target){
-			target = target.trim();
-			if(config.groupsranking.indexOf(target) > -1 || symbols.indexOf(target) > -1){
-				if(config.groupsranking.indexOf(target) <= config.groupsranking.indexOf(user.group)){
-				var tar = target
-				}else{
-					this.sendReply('The group symbol you have tried to use is of a higher authority than you have access to. Defaulting to \' \' instead.');
-				}
-			}else{
-				this.sendReply('You have tried to use an invalid character as your auth symbol. Defaulting to \' \' instead.');
-				var tar = '';
-			}
-		}
-                user.hiding = true;
-                user.hideSym = tar;
-		user.updateIdentity();
-		this.sendReply( 'You are now hiding your auth symbol as \''+tar+ '\'.');
-		return this.logModCommand(user.name + ' is hiding auth symbol as \''+ tar + '\'');
-	},
-
-	showauth: function(target, room, user){
-		if(!user.can('mute'))
-			return	this.sendReply( '/showauth - access denied.');
-
-		user.hiding = false
-		user.updateIdentity();
-		this.sendReply('You have now revealed your auth symbol.');
-		return this.logModCommand(user.name + ' has revealed their auth symbol.');
-	},
-        away: function(target, room, user){
-		if(!this.can('mute')){
-		user.away = true;
-		user.updateIdentity();
-		this.add(user.name + ' is now away(' + target +').')
-		}
-		else{ 
-		return false;
-		}
-        },
         back: function(target, room, user){
 		if(!user.away){
 		this.sendReply('You are not even away.');
@@ -271,10 +230,5 @@ hide: 'hideauth',
                 if(!target) return this.sendReply('/poke needs a target.');
                 return this.parse('/me pokes ' + target + '.');
         },
-	hidelist: function(target, room, user){
-	if(!this.can('mute')) return false;
-	else
-	this.sendReply('©,®,♪,☯,ϟ are the custom hide symbols')
-	}
 };
 Object.merge(CommandParser.commands, cmds);
