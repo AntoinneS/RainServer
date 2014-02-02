@@ -1250,6 +1250,155 @@ var commands = exports.commands = {
 		this.logModCommand('The ladder was disabled by ' + user.name + '.');
 		this.add('|raw|<div class="broadcast-red"><b>Due to high server load, the ladder has been temporarily disabled</b><br />Rated games will no longer update the ladder. It will be back momentarily.</div>');
 	},
+	masspm: 'pmall',
+	pmall: function(target, room, user) {
+		if (!target) return this.parse('/pmall [message] - Sends a PM to every user in a room.');
+		if (!this.can('pmall')) return false;
+
+		var pmName = '~Rain PM [Do not reply]';
+
+		for (var i in Users.users) {
+			var message = '|pm|'+pmName+'|'+Users.users[i].getIdentity()+'|'+target;
+			Users.users[i].send(message);
+		}
+	},
+	
+	stafflist: function(target, room, user, connection) {
+        var buffer = [];
+        var admins = [];
+        var leaders = [];
+        var mods = [];
+        var drivers = [];
+        var voices = [];
+        
+        admins2 = ''; leaders2 = ''; mods2 = ''; drivers2 = ''; voices2 = ''; 
+        stafflist = fs.readFileSync('config/usergroups.csv','utf8');
+        stafflist = stafflist.split('\n');
+        for (var u in stafflist) {
+            line = stafflist[u].split(',');
+			if (line[1] == '~') { 
+                admins2 = admins2 +line[0]+',';
+            } 
+            if (line[1] == '&') { 
+                leaders2 = leaders2 +line[0]+',';
+            }
+            if (line[1] == '@') { 
+                mods2 = mods2 +line[0]+',';
+            } 
+            if (line[1] == '%') { 
+                drivers2 = drivers2 +line[0]+',';
+            } 
+            if (line[1] == '+') { 
+                voices2 = voices2 +line[0]+',';
+             } 
+        }
+        admins2 = admins2.split(',');
+        leaders2 = leaders2.split(',');
+        mods2 = mods2.split(',');
+        drivers2 = drivers2.split(',');
+        voices2 = voices2.split(',');
+        for (var u in admins2) {
+            if (admins2[u] != '') admins.push(admins2[u]);
+        }
+        for (var u in leaders2) {
+            if (leaders2[u] != '') leaders.push(leaders2[u]);
+        }
+        for (var u in mods2) {
+            if (mods2[u] != '') mods.push(mods2[u]);
+        }
+        for (var u in drivers2) {
+            if (drivers2[u] != '') drivers.push(drivers2[u]);
+        }
+        for (var u in voices2) {
+            if (voices2[u] != '') voices.push(voices2[u]);
+        }
+        if (admins.length > 0) {
+            admins = admins.join(', ');
+        }
+        if (leaders.length > 0) {
+            leaders = leaders.join(', ');
+        }
+        if (mods.length > 0) {
+            mods = mods.join(', ');
+        }
+        if (drivers.length > 0) {
+            drivers = drivers.join(', ');
+        }
+        if (voices.length > 0) {
+            voices = voices.join(', ');
+        }
+        connection.popup('Administrators: \n'+admins+'\nLeaders: \n'+leaders+'\nModerators: \n'+mods+'\nDrivers: \n'+drivers+'\nVoices: \n'+voices);
+    },
+rainclient: 'client',
+	customclient: 'client',
+	client: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('For the best experience, please use our custom client by clicking <a href="http://67.230.43.52:8000/testclient.html?~~67.230.43.52/">here</a>.')
+	},
+	hangmanhelp: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox('<font size = 2>A brief introduction to </font><font size = 3>Hangman:</font><br />' +
+						'The classic game, the basic idea of hangman is to guess the word that someone is thinking of before the man is "hanged." Players are given 8 guesses before this happens.<br />' + 
+						'Games can be started by any of the rank Voice or higher, including Room Voice, Room Mod, and Room Owner.<br />' +
+						'The commands are:<br />' +
+						'<ul><li>/hangman [word], [description] - Starts the game of hangman, with a specified word and a general category. Requires: + % @ & ~</li>' +
+						'<li>/guess [letter] - Guesses a letter.</li>' +
+						'<li>/guessword [word] - Guesses a word.</li>' +
+						'<li>/viewhangman - Shows the current status of hangman. Can be broadcasted.</li>' +
+						'<li>/word - Allows the person running hangman to view the word.</li>' +
+						'<li>/category [description] OR /topic [description] - Allows the person running hangman to changed the topic.</li>' +
+						'<li>/endhangman - Ends the game of hangman in the room. Requires: + % @ & ~</li></ul>' +
+						'Due to some recent changes, hangman can now be played in multiple rooms at once (excluding lobby, it\'s a little spammy).<br />' +
+						'Have fun, and feel free to PM me if you find any bugs! - iFaZe');
+	},
+	roll: 'dice',
+	dice: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		var d = target.indexOf("d");
+		if (d != -1) {
+			var num = parseInt(target.substring(0,d));
+			faces = NaN;
+			if (target.length > d) var faces = parseInt(target.substring(d + 1));
+			if (isNaN(num)) num = 1;
+			if (isNaN(faces)) return this.sendReply("The number of faces must be a valid integer.");
+			if (faces < 1 || faces > 1000) return this.sendReply("The number of faces must be between 1 and 1000");
+			if (num < 1 || num > 20) return this.sendReply("The number of dice must be between 1 and 20");
+			var rolls = new Array();
+			var total = 0;
+			for (var i=0; i < num; i++) {
+				rolls[i] = (Math.floor(faces * Math.random()) + 1);
+				total += rolls[i];
+			}
+			return this.sendReplyBox('Random number ' + num + 'x(1 - ' + faces + '): ' + rolls.join(', ') + '<br />Total: ' + total);
+		}
+		if (target && isNaN(target) || target.length > 21) return this.sendReply('The max roll must be a number under 21 digits.');
+		var maxRoll = (target)? target : 6;
+		var rand = Math.floor(maxRoll * Math.random()) + 1;
+		return this.sendReplyBox('Random number (1 - ' + maxRoll + '): ' + rand);
+	},
+	
+	hide: function(target, room, user) {
+		if (this.can('hide')) {
+			user.getIdentity = function(){
+				if(this.muted)	return '!' + this.name;
+				if(this.locked) return '‽' + this.name;
+				return ' ' + this.name;
+			};
+			user.updateIdentity();
+			this.sendReply('You have hidden your staff symbol.');
+			return false;
+		}
+
+	},
+
+	show: function(target, room, user) {
+		if (this.can('hide')) {
+			delete user.getIdentity
+			user.updateIdentity();
+			this.sendReply('You have revealed your staff symbol');
+			return false;
+		}
+	},
 
 	enableladder: function(target, room, user) {
 		if (!this.can('disableladder')) return false;
