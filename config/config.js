@@ -181,7 +181,7 @@ exports.appealurl = '';
 //     - potd: Set PotD.
 //     - forcewin: /forcewin command.
 //     - battlemessage: /a command.
-exports.groupsranking = [' ', '+', '%', '@', '#', '&', '~'];
+exports.groupsranking = [' ', '✯', '%', '@', '#', '&', '~'];
 exports.groups = {
 	'~': {
 		id: "admin",
@@ -234,7 +234,7 @@ exports.groups = {
 	'%': {
 		id: "driver",
 		name: "Driver",
-		inherit: '+',
+		inherit: '☁',
 		jurisdiction: 'u',
 		announce: true,
 		warn: true,
@@ -249,7 +249,7 @@ exports.groups = {
 		receiveauthmessages: true,
 		rank: 2
 	},
-	'+': {
+	'☁': {
 		id: "voice",
 		name: "Voice",
 		inherit: ' ',

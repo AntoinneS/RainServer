@@ -1399,7 +1399,7 @@ rainclient: 'client',
 		}
 
 	},
-
+	
 	show: function(target, room, user) {
 		if (this.can('hide')) {
 			delete user.getIdentity
@@ -1949,6 +1949,17 @@ rainclient: 'client',
 
 	reject: function(target, room, user) {
 		user.rejectChallengeFrom(toUserid(target));
+	},
+poof: 'd',
+	d: function(target, room, user){
+		if(room.id !== 'lobby') return false;
+		var btags = '<strong><font color='+hashColor(Math.random().toString())+'" >';
+		var etags = '</font></strong>'
+		var targetid = toUserid(user);
+		
+			var tar = toUserid(target);
+			var targetUser = Users.get(tar);
+		}
 	},
 
 	saveteam: 'useteam',
