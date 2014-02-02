@@ -1264,12 +1264,17 @@ var commands = exports.commands = {
 	},
 	
 	stafflist: function(target, room, user, connection) {
-        var buffer = [];
-        var admins = [];
-        var leaders = [];
-        var mods = [];
-        var drivers = [];
-        var voices = [];
+    	var buffer = [];
+       
+	    var admins = [];
+        
+		var leaders = [];
+        
+		var mods = [];
+        
+		var drivers = [];
+        
+		var voices = [];
         
         admins2 = ''; leaders2 = ''; mods2 = ''; drivers2 = ''; voices2 = ''; 
         stafflist = fs.readFileSync('config/usergroups.csv','utf8');
@@ -1293,10 +1298,14 @@ var commands = exports.commands = {
              } 
         }
         admins2 = admins2.split(',');
-        leaders2 = leaders2.split(',');
-        mods2 = mods2.split(',');
-        drivers2 = drivers2.split(',');
-        voices2 = voices2.split(',');
+        
+		leaders2 = leaders2.split(',');
+        
+		mods2 = mods2.split(',');
+        
+		drivers2 = drivers2.split(',');
+        
+		voices2 = voices2.split(',');
         for (var u in admins2) {
             if (admins2[u] != '') admins.push(admins2[u]);
         }
