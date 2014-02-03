@@ -6,7 +6,7 @@ else  bot = {};
 var botStuff = {
 name: '~RainBot'
 jokes: {
-0: 'The original title for Alien vs. Predator was Alien and Predator vs Chuck Norris. The film was cancelled shortly after going into preproduction. No one would pay nine dollars to see a movie fourteen seconds long.',
+0: 'The original title for Alien vs. Predator was Alien and Predator vs Chuck Norris. The film was canceled shortly after going into preproduction. No one would pay nine dollars to see a movie fourteen seconds long.',
 1: 'There used to be a street named after Chuck Norris, but it was changed because nobody crosses Chuck Norris and lives.',
 2: 'Some magicans can walk on water, Chuck Norris can swim through land.',
 3: 'If you were somehow able to land a punch on Chuck Norris your entire arm would shatter upon impact. This is only in theory, since, come on, who in their right mind would try this?',
@@ -34,6 +34,6 @@ return bot.jokes[Math.floor[Math.random()*20]];
 say: function(name,message){
   return room.add('|c| ' + name + '|' + message);
 },
-parser: require('./botparser.js')
+MOTD: '',
 cmds: {}
 }
