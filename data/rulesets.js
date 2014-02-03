@@ -463,7 +463,7 @@ exports.BattleFormats = {
 			}
 			return ["Your team must share a color."];
 		}
-	}
+	},
 	sametypeclause: {
                 effectType: 'Rule',
                 onStart: function() {
@@ -489,5 +489,4 @@ exports.BattleFormats = {
                         return ["Your team must share a type."];
                 }
         }
-};
 };

@@ -504,7 +504,7 @@ var commands = exports.commands = {
                         return connection.sendTo('lobby','|html|<div class="infobox" style="border-color:blue"><center><img src="http://www.pkparaiso.com/imagenes/xy/sprites/animados/lugia.gif"><br><br>' +
 						'<b><u>Welcome to the Rain Server!</u></b><br />' + 
 						'<center><img src="http://officialrainleague.weebly.com/uploads/2/4/8/7/24870989/129111.png?298"><br /><br />' +
-                        'We Have An Official League Called Rain League Pm nCrypt or Twamble for information!<br /><br />' +
+                        'We Have Now Have OU MonoColor and Ubers MonoColor Useable color are /green /white /pink /blue /brown /purple /grey /black /yellow /red use these commands to see the list of pokemon<br /><br />' +
                         'MAKE SURE YOU TRY OUT OUR CUSTOM CLIENT. WHAT IS THIS? A COOLER LOOKING VERSION OF THIS PLACE!<a href="http://67.230.43.52:8000/testclient.html?~~67.230.43.52/">here</a>!<br /><br />' +
                         'For Information About Server, Please talk to an admin (~) but the admins are usually busy so please dont pm simple question you can ask in the chat <br /><br />' +
                         'We Are Ever Improving So State Suggestion And It Could Just Happen As Anything Is Possible Atm<br /><br />' +
@@ -1949,17 +1949,6 @@ rainclient: 'client',
 
 	reject: function(target, room, user) {
 		user.rejectChallengeFrom(toUserid(target));
-	},
-poof: 'd',
-	d: function(target, room, user){
-		if(room.id !== 'lobby') return false;
-		var btags = '<strong><font color='+hashColor(Math.random().toString())+'" >';
-		var etags = '</font></strong>'
-		var targetid = toUserid(user);
-		
-			var tar = toUserid(target);
-			var targetUser = Users.get(tar);
-		}
 	},
 
 	saveteam: 'useteam',
