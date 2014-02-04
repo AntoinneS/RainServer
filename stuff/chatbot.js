@@ -26,7 +26,7 @@ jokes: {
 17: 'Why did the redneck cross the road? He wanted to sleep in the ditch on the other side. ',
 18: 'Why did the blind blonde cross the road? She was following her seeing-eye chicken.',
 19: 'Why was there so much confusion with the Secret Service after George W. Bush took over the White House? Because President Bill Clinton\'s code name was also "Mr. Bush."',
-20: 'Most wives whose husbands fool around have to worry about their husbands getting AIDS from sex.Hillary just has to worry about her husband getting sex from aides.'
+20: 'Most wives whose husbands fool around have to worry about their husbands getting AIDS from sex. Hillary just has to worry about her husband getting sex from aides.'
 },
 getRandjoke: function(){
 return bot.jokes[Math.floor[Math.random()*20]];
@@ -34,6 +34,27 @@ return bot.jokes[Math.floor[Math.random()*20]];
 say: function(name,message){
   return room.add('|c| ' + name + '|' + message);
 },
-MOTD: '',
-cmds: {}
+MOTD: undefined,
+cmds: {
+  MOTD: function(target, room, user){
+    if(this.can('mute')){
+      if(!target){
+        return this.sendReply('You must specify a message.');
+      }
+      if(!this.canTalk(target)) return false;
+      else{
+        this.add('The new Message of the day is ' + target + '.');
+        bot.MOTD = target;
+      }
+    }
+  }
+}
+}
+if(bot.MOTD){
+global.Int =  setInterval(function(){Rooms.rooms.lobby.add(bot.MOTD)},3000);
+global.IntOn = true;
+}
+if(!bot.MOTD && global.IntOn){
+  clearInterval(Int);
+}
 }
