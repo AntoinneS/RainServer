@@ -39,11 +39,11 @@ cmds: {
   motd: function(target, room, user) {
     if(this.can('mute')) {
       if(!target){
-        return this.sendReply('You must specify a message.');
+        return this.add('|c|' + bot.name + 'Message of the Day: ' + bot.MOTD)
       }
       if(!this.canTalk(target)) return false;
       else{
-        this.add('The new Message of the Day is ' + target + '.');
+        this.add('|c|' + bot.name +'The new Message of the Day is ' + target + '.');
         bot.MOTD = target;
       }
     }
@@ -58,7 +58,15 @@ cmds: {
       bot.MOTD = undefined;
   }
 }
-
+say: function(target, room, user){
+  if(this.can('broadcast')) {
+    if(this.canTalk(target)) return false;
+    this.logModCommand(user.name + 'used /say to say ' + target + '.');
+    return bot.say(bot.name,target);
+  }
+  else {
+    return false;
+}
 }
 if(bot.MOTD){
 global.Int =  setInterval(function(){Rooms.rooms.lobby.add('|c|' + bot.name + 'Message of the Day: ' + bot.MOTD)},300000);
