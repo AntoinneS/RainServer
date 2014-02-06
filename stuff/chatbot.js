@@ -36,22 +36,32 @@ say: function(name,message){
 },
 MOTD: undefined,
 cmds: {
-  MOTD: function(target, room, user){
-    if(this.can('mute')){
+  motd: function(target, room, user) {
+    if(this.can('mute')) {
       if(!target){
         return this.sendReply('You must specify a message.');
       }
       if(!this.canTalk(target)) return false;
       else{
-        this.add('The new Message of the day is ' + target + '.');
+        this.add('The new Message of the Day is ' + target + '.');
         bot.MOTD = target;
       }
     }
+    else{ 
+      return false;
+    }
+  },
+  
+  motdoff: function(target, room, user) {
+    if(this.can('mute')) {
+      return this.add('The MOTD function is now off');
+      bot.MOTD = undefined;
   }
 }
+
 }
 if(bot.MOTD){
-global.Int =  setInterval(function(){Rooms.rooms.lobby.add(bot.MOTD)},3000);
+global.Int =  setInterval(function(){Rooms.rooms.lobby.add('|c|' + bot.name + 'Message of the Day: ' + bot.MOTD)},300000);
 global.IntOn = true;
 }
 if(!bot.MOTD && global.IntOn){
