@@ -57,15 +57,23 @@ cmds: {
       return this.add('The MOTD function is now off');
       bot.MOTD = undefined;
   }
-}
+},
+
 say: function(target, room, user){
   if(this.can('broadcast')) {
     if(this.canTalk(target)) return false;
     this.logModCommand(user.name + 'used /say to say ' + target + '.');
-    return bot.say(bot.name,target);
+    return bot.say(bot.name, target);
   }
   else {
     return false;
+          }
+},  
+
+joke: function(target, room, user){
+  if(this.can('broadcast')) {
+    return bot.say(bot.name, bot.getRandjoke);
+  }
 }
 }
 if(bot.MOTD){
