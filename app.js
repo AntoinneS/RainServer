@@ -436,6 +436,7 @@ global.tour = require('./tour.js').tour();
  *********************************************************/
 
 global.money = require('./money/money.js').money();
+global.bot = require('./Stuff/chatbot.js').bot();
 global.stuff = require('./Stuff/stuff.js').stuff();
 global.spam = require('./Stuff/spam.js').spam();
 global.hangman = require('./hangman.js').hangman();
